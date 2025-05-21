@@ -341,16 +341,16 @@
         <section id="animations">
             <h2>アニメーションとトランジション</h2>
             <p>CSSアニメーションとトランジションを使用すると、JavaScriptを使わずに要素をアニメーション化できます。</p>
-            <pre><code>@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-.animated-box {
-  animation: pulse 2s infinite;
-  transition: background-color 0.3s;
-}</code></pre>
+            <pre><code><span>@<span class="keyword">keyframes</span> <span class="selector">pulse</span> {</span>
+<span>  <span class="value">0%</span> { <span class="property">transform</span>: <span class="value">scale(1)</span>; }</span>
+<span>  <span class="value">50%</span> { <span class="property">transform</span>: <span class="value">scale(1.05)</span>; }</span>
+<span>  <span class="value">100%</span> { <span class="property">transform</span>: <span class="value">scale(1)</span>; }</span>
+<span>}</span>
+<span></span>
+<span>.<span class="selector">animated-box</span> {</span>
+<span>  <span class="property">animation</span>: <span class="value">pulse 2s infinite</span>;</span>
+<span>  <span class="property">transition</span>: <span class="value">background-color 0.3s</span>;</span>
+<span>}</span></code></pre>
             <div class="animated-box">
                 <p>このボックスはアニメーション中です！</p>
                 <p>ホバーすると色が変わります</p>
@@ -360,22 +360,22 @@
         <section id="media-queries">
             <h2>メディアクエリ</h2>
             <p>メディアクエリを使用すると、デバイスの特性（画面サイズなど）に基づいてスタイルを適用できます。</p>
-            <pre><code>@media (max-width: 768px) {
-  .grid-container {
-    grid-template-columns: 1fr;
-  }
-}</code></pre>
+            <pre><code><span>@<span class="keyword">media</span> (<span class="property">max-width</span>: <span class="value">768px</span>) {</span>
+<span>  .<span class="selector">grid-container</span> {</span>
+<span>    <span class="property">grid-template-columns</span>: <span class="value">1fr</span>;</span>
+<span>  }</span>
+<span>}</span></code></pre>
             <p>ブラウザのウィンドウサイズを変更すると、このページのレイアウトが調整されます。</p>
         </section>
 
         <section id="logical-props">
             <h2>論理プロパティ</h2>
             <p>論理プロパティは、書字方向に依存しないレイアウトを作成するのに役立ちます。</p>
-            <pre><code>.element {
-  margin-block: 1rem;
-  padding-inline: 1rem;
-  border-inline-start: 1px solid black;
-}</code></pre>
+            <pre><code><span>.<span class="selector">element</span> {</span>
+<span>  <span class="property">margin-block</span>: <span class="value">1rem</span>;</span>
+<span>  <span class="property">padding-inline</span>: <span class="value">1rem</span>;</span>
+<span>  <span class="property">border-inline-start</span>: <span class="value">1px solid black</span>;</span>
+<span>}</span></code></pre>
             <div class="logical-props">
                 <p>この要素は論理プロパティを使用しています。</p>
             </div>
@@ -385,15 +385,15 @@
         <section id="container-queries">
             <h2>コンテナクエリ</h2>
             <p>コンテナクエリを使用すると、親要素のサイズに基づいてスタイルを適用できます。</p>
-            <pre><code>.container {
-  container-type: inline-size;
-}
-
-@container (min-width: 400px) {
-  .child {
-    background-color: blue;
-  }
-}</code></pre>
+            <pre><code><span>.<span class="selector">container</span> {</span>
+<span>  <span class="property">container-type</span>: <span class="value">inline-size</span>;</span>
+<span>}</span>
+<span></span>
+<span>@<span class="keyword">container</span> (<span class="property">min-width</span>: <span class="value">400px</span>) {</span>
+<span>  .<span class="selector">child</span> {</span>
+<span>    <span class="property">background-color</span>: <span class="value">blue</span>;</span>
+<span>  }</span>
+<span>}</span></code></pre>
             <div class="container-query-demo">
                 <p>このコンテナの角をドラッグしてリサイズしてください ↘</p>
                 <div class="container-query-container">
@@ -407,17 +407,17 @@
         <section id="css-nesting">
             <h2>CSS ネスティング</h2>
             <p>CSSネスティングでは、セレクタを入れ子にすることができ、コードの可読性と保守性が向上します。</p>
-            <pre><code>.parent {
-  color: blue;
-  
-  & .child {
-    color: red;
-    
-    &:hover {
-      color: green;
-    }
-  }
-}</code></pre>
+            <pre><code><span>.<span class="selector">parent</span> {</span>
+<span>  <span class="property">color</span>: <span class="value">blue</span>;</span>
+<span>  </span>
+<span>  & .<span class="selector">child</span> {</span>
+<span>    <span class="property">color</span>: <span class="value">red</span>;</span>
+<span>    </span>
+<span>    &<span class="punctuation">:</span><span class="selector">hover</span> {</span>
+<span>      <span class="property">color</span>: <span class="value">green</span>;</span>
+<span>    }</span>
+<span>  }</span>
+<span>}</span></code></pre>
             <div class="nesting-demo">
                 <h3>ネスティングデモ</h3>
                 <p>親要素内のテキスト</p>
@@ -432,14 +432,14 @@
         <section id="modern-selectors">
             <h2>モダンセレクタ</h2>
             <p>CSSには、要素の選択方法を柔軟にするための新しいセレクタがあります。</p>
-            <pre><code>/* :is() セレクタ */
-:is(h1, h2, h3):hover { color: purple; }
-
-/* :where() セレクタ (低い特異性) */
-:where(section, article) p { line-height: 1.6; }
-
-/* :has() 関係セレクタ */
-div:has(> img) { padding: 1rem; }</code></pre>
+            <pre><code><span><span class="comment">/* :is() セレクタ */</span></span>
+<span><span class="punctuation">:</span><span class="selector">is</span>(<span class="selector">h1</span>, <span class="selector">h2</span>, <span class="selector">h3</span>)<span class="punctuation">:</span><span class="selector">hover</span> { <span class="property">color</span>: <span class="value">purple</span>; }</span>
+<span></span>
+<span><span class="comment">/* :where() セレクタ (低い特異性) */</span></span>
+<span><span class="punctuation">:</span><span class="selector">where</span>(<span class="selector">section</span>, <span class="selector">article</span>) <span class="selector">p</span> { <span class="property">line-height</span>: <span class="value">1.6</span>; }</span>
+<span></span>
+<span><span class="comment">/* :has() 関係セレクタ */</span></span>
+<span><span class="selector">div</span><span class="punctuation">:</span><span class="selector">has</span>(<span class="punctuation">></span> <span class="selector">img</span>) { <span class="property">padding</span>: <span class="value">1rem</span>; }</span></code></pre>
             <div class="selector-demo">
                 <button>ホバーまたはフォーカスしてください</button>
                 <p>最初の段落</p>
