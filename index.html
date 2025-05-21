@@ -60,6 +60,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
+        /* Code block styling with light syntax highlighting */
         code {
             background-color: #eee;
             padding: 0.2rem 0.4rem;
@@ -76,6 +77,7 @@
             overflow-x: auto;
             margin: var(--spacing-unit) 0;
             box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+            position: relative;
         }
         
         pre code {
@@ -87,6 +89,26 @@
             white-space: pre;
             display: block;
             tab-size: 2;
+        }
+        
+        /* Simple syntax highlighting */
+        pre code .selector { color: #a6e22e; }
+        pre code .property { color: #66d9ef; }
+        pre code .value { color: #fd971f; }
+        pre code .comment { color: #75715e; }
+        
+        /* Visual indication for code blocks */
+        pre::before {
+            content: "CSS";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+            border-bottom-left-radius: var(--border-radius);
+            opacity: 0.8;
         }
 
         /* Grid Layout Example */
