@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最新のCSS記法まとめ</title>
+    <style>
+        /* CSS Variables (Custom Properties) */
+        :root {
+            --primary-color: #4a6da7;
+            --secondary-color: #a74a6d;
+            --accent-color: #6da74a;
+            --text-color: #333;
+            --background-color: #f5f5f5;
+            --spacing-unit: 1rem;
+            --border-radius: 8px;
+            --transition-speed: 0.3s;
+            --max-width: 1200px;
+        }
+
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding: var(--spacing-unit);
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: var(--spacing-unit);
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: calc(var(--spacing-unit) * 2);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-unit);
+            text-align: center;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: var(--spacing-unit);
+        }
+
+        section {
+            margin-bottom: calc(var(--spacing-unit) * 3);
+            padding: var(--spacing-unit);
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        code {
+            background-color: #eee;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        pre {
+            background-color: #333;
+            color: #fff;
+            padding: var(--spacing-unit);
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+            margin: var(--spacing-unit) 0;
+        }
+
+        /* Grid Layout Example */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-gap: var(--spacing-unit);
+            margin: var(--spacing-unit) 0;
+        }
+
+        .grid-item {
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing-unit);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 150px;
+        }
+
+        /* Flexbox Example */
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-unit);
+            margin: var(--spacing-unit) 0;
+        }
+
+        .flex-item {
+            flex: 1 1 200px;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: var(--spacing-unit);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+        }
+
+        /* Animation Example */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .animated-box {
+            background-color: var(--accent-color);
+            color: white;
+            padding: var(--spacing-unit);
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin: var(--spacing-unit) 0;
+            animation: pulse 2s infinite;
+            transition: background-color var(--transition-speed);
+        }
+
+        .animated-box:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                padding: var(--spacing-unit);
+            }
+        }
+
+        /* Logical Properties Example */
+        .logical-props {
+            margin-block: var(--spacing-unit);
+            padding-inline: var(--spacing-unit);
+            border-inline-start: 4px solid var(--primary-color);
+            border-block-end: 2px solid var(--secondary-color);
+        }
+
+        /* Container Query Example */
+        .container-query-demo {
+            resize: horizontal;
+            overflow: auto;
+            border: 2px dashed var(--primary-color);
+            padding: var(--spacing-unit);
+            max-width: 100%;
+        }
+
+        @container (min-width: 400px) {
+            .container-query-item {
+                background-color: var(--accent-color);
+            }
+        }
+
+        .container-query-container {
+            container-type: inline-size;
+            padding: var(--spacing-unit);
+        }
+
+        .container-query-item {
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing-unit);
+            border-radius: var(--border-radius);
+            transition: background-color var(--transition-speed);
+        }
+
+        /* Modern Selectors */
+        button:is(:hover, :focus) {
+            outline: 2px solid var(--accent-color);
+        }
+
+        .selector-demo p:not(:first-child) {
+            margin-top: var(--spacing-unit);
+        }
+
+        /* CSS Nesting */
+        .nesting-demo {
+            padding: var(--spacing-unit);
+            background-color: #eee;
+
+            & h3 {
+                color: var(--primary-color);
+            }
+
+            & p {
+                margin-block: calc(var(--spacing-unit) * 0.5);
+
+                &.highlight {
+                    background-color: rgba(255, 255, 0, 0.3);
+                    padding: 0.5em;
+                }
+            }
+
+            & .nested-children {
+                border: 1px solid #ddd;
+                padding: var(--spacing-unit);
+
+                & > * + * {
+                    margin-top: 0.5em;
+                }
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>最新のCSS記法まとめ</h1>
+            <p>モダンCSS技術とベストプラクティス</p>
+        </header>
+
+        <section id="overview">
+            <h2>概要</h2>
+            <p>このページでは、最新のCSSの機能や記法について紹介します。コードと実例を用いて、モダンなCSSテクニックを解説します。</p>
+        </section>
+
+        <section id="css-variables">
+            <h2>CSS変数（カスタムプロパティ）</h2>
+            <p>カスタムプロパティ（CSS変数）を使用すると、再利用可能な値をドキュメント全体で定義して使用できます。</p>
+            <pre><code>:root {
+  --primary-color: #4a6da7;
+  --spacing-unit: 1rem;
+}
+
+.element {
+  color: var(--primary-color);
+  padding: var(--spacing-unit);
+}</code></pre>
+            <p>このページでは、CSS変数を使って色やスペーシングなどを一元管理しています。変数は<code>--変数名</code>で定義し、<code>var(--変数名)</code>で使用します。</p>
+        </section>
+
+        <section id="css-grid">
+            <h2>CSS Grid Layout</h2>
+            <p>CSSグリッドは、行と列の両方向にレイアウトを制御できる強力な2次元レイアウトシステムです。</p>
+            <pre><code>.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 1rem;
+}</code></pre>
+            <div class="grid-container">
+                <div class="grid-item">Grid Item 1</div>
+                <div class="grid-item">Grid Item 2</div>
+                <div class="grid-item">Grid Item 3</div>
+                <div class="grid-item">Grid Item 4</div>
+            </div>
+            <p><code>grid-template-columns</code>プロパティは列の幅とサイズを定義し、<code>grid-gap</code>はアイテム間のスペースを設定します。</p>
+        </section>
+
+        <section id="css-flexbox">
+            <h2>CSS Flexbox</h2>
+            <p>フレックスボックスは、コンテナ内のアイテムの配置と分配を柔軟に制御できる1次元レイアウトモデルです。</p>
+            <pre><code>.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.flex-item {
+  flex: 1 1 200px;
+}</code></pre>
+            <div class="flex-container">
+                <div class="flex-item">Flex Item 1</div>
+                <div class="flex-item">Flex Item 2</div>
+                <div class="flex-item">Flex Item 3</div>
+            </div>
+            <p><code>flex</code>プロパティはグロー、シュリンク、基本サイズを一度に設定できます。</p>
+        </section>
+
+        <section id="animations">
+            <h2>アニメーションとトランジション</h2>
+            <p>CSSアニメーションとトランジションを使用すると、JavaScriptを使わずに要素をアニメーション化できます。</p>
+            <pre><code>@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.animated-box {
+  animation: pulse 2s infinite;
+  transition: background-color 0.3s;
+}</code></pre>
+            <div class="animated-box">
+                <p>このボックスはアニメーション中です！</p>
+                <p>ホバーすると色が変わります</p>
+            </div>
+        </section>
+
+        <section id="media-queries">
+            <h2>メディアクエリ</h2>
+            <p>メディアクエリを使用すると、デバイスの特性（画面サイズなど）に基づいてスタイルを適用できます。</p>
+            <pre><code>@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+}</code></pre>
+            <p>ブラウザのウィンドウサイズを変更すると、このページのレイアウトが調整されます。</p>
+        </section>
+
+        <section id="logical-props">
+            <h2>論理プロパティ</h2>
+            <p>論理プロパティは、書字方向に依存しないレイアウトを作成するのに役立ちます。</p>
+            <pre><code>.element {
+  margin-block: 1rem;
+  padding-inline: 1rem;
+  border-inline-start: 1px solid black;
+}</code></pre>
+            <div class="logical-props">
+                <p>この要素は論理プロパティを使用しています。</p>
+            </div>
+            <p>従来の<code>margin-top</code>の代わりに<code>margin-block-start</code>、<code>padding-left</code>の代わりに<code>padding-inline-start</code>のように使用します。</p>
+        </section>
+
+        <section id="container-queries">
+            <h2>コンテナクエリ</h2>
+            <p>コンテナクエリを使用すると、親要素のサイズに基づいてスタイルを適用できます。</p>
+            <pre><code>.container {
+  container-type: inline-size;
+}
+
+@container (min-width: 400px) {
+  .child {
+    background-color: blue;
+  }
+}</code></pre>
+            <div class="container-query-demo">
+                <p>このコンテナの角をドラッグしてリサイズしてください ↘</p>
+                <div class="container-query-container">
+                    <div class="container-query-item">
+                        <p>コンテナの幅が400px以上になると色が変わります</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="css-nesting">
+            <h2>CSS ネスティング</h2>
+            <p>CSSネスティングでは、セレクタを入れ子にすることができ、コードの可読性と保守性が向上します。</p>
+            <pre><code>.parent {
+  color: blue;
+  
+  & .child {
+    color: red;
+    
+    &:hover {
+      color: green;
+    }
+  }
+}</code></pre>
+            <div class="nesting-demo">
+                <h3>ネスティングデモ</h3>
+                <p>親要素内のテキスト</p>
+                <p class="highlight">ハイライトされたテキスト</p>
+                <div class="nested-children">
+                    <p>ネストされた子要素1</p>
+                    <p>ネストされた子要素2</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="modern-selectors">
+            <h2>モダンセレクタ</h2>
+            <p>CSSには、要素の選択方法を柔軟にするための新しいセレクタがあります。</p>
+            <pre><code>/* :is() セレクタ */
+:is(h1, h2, h3):hover { color: purple; }
+
+/* :where() セレクタ (低い特異性) */
+:where(section, article) p { line-height: 1.6; }
+
+/* :has() 関係セレクタ */
+div:has(> img) { padding: 1rem; }</code></pre>
+            <div class="selector-demo">
+                <button>ホバーまたはフォーカスしてください</button>
+                <p>最初の段落</p>
+                <p>二番目の段落（上部にマージンあり）</p>
+                <p>三番目の段落（上部にマージンあり）</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
