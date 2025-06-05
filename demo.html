@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>チャットアプリ - スタンドアロンテスト</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .chat-header {
+            background-color: #4a6da7;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .messages-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 300px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #6da74a;
+        }
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .message-name {
+            font-weight: bold;
+            color: #4a6da7;
+        }
+        .message-time {
+            font-size: 0.8em;
+            color: #666;
+        }
+        .message-form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .form-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .name-input {
+            flex: 1;
+        }
+        .message-input {
+            flex: 1;
+        }
+        .send-button {
+            padding: 10px 20px;
+            background-color: #4a6da7;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .send-button:hover {
+            background-color: #a74a6d;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-header">
+        <h1>🗨️ チャットアプリ - スタンドアロンテスト</h1>
+        <p>ローカルストレージを使用したフロントエンドのみのデモ</p>
+    </div>
+
+    <div class="messages-container" id="messagesContainer">
+        <!-- Messages will be displayed here -->
+    </div>
+
+    <div class="message-form">
+        <div class="form-row">
+            <input type="text" id="nameInput" placeholder="お名前" class="name-input" required>
+        </div>
+        <div class="form-row">
+            <input type="text" id="messageInput" placeholder="メッセージを入力..." class="message-input" required>
+            <button onclick="sendMessage()" class="send-button">送信</button>
+        </div>
+    </div>
+
+    <div id="status"></div>
+
+    <script>
+        // Use localStorage for demo purposes
+        function getMessages() {
+            const messages = localStorage.getItem('chatMessages');
+            return messages ? JSON.parse(messages) : [];
+        }
+
+        function saveMessage(name, message) {
+            const messages = getMessages();
+            const newMessage = {
+                id: messages.length + 1,
+                name: name,
+                message: message,
+                timestamp: new Date().toLocaleString('ja-JP')
+            };
+            messages.push(newMessage);
+            localStorage.setItem('chatMessages', JSON.stringify(messages));
+            return newMessage;
+        }
+
+        function displayMessages() {
+            const messages = getMessages();
+            const container = document.getElementById('messagesContainer');
+            
+            if (messages.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #666; font-style: italic;">まだメッセージがありません</p>';
+                return;
+            }
+
+            container.innerHTML = messages.map(msg => `
+                <div class="message">
+                    <div class="message-header">
+                        <span class="message-name">${msg.name}</span>
+                        <span class="message-time">${msg.timestamp}</span>
+                    </div>
+                    <div class="message-content">${msg.message}</div>
+                </div>
+            `).join('');
+        }
+
+        function sendMessage() {
+            const nameInput = document.getElementById('nameInput');
+            const messageInput = document.getElementById('messageInput');
+            const statusDiv = document.getElementById('status');
+
+            const name = nameInput.value.trim();
+            const message = messageInput.value.trim();
+
+            if (!name || !message) {
+                statusDiv.innerHTML = '<div class="status error">名前とメッセージの両方を入力してください</div>';
+                return;
+            }
+
+            try {
+                saveMessage(name, message);
+                messageInput.value = '';
+                displayMessages();
+                statusDiv.innerHTML = '<div class="status success">メッセージが送信されました</div>';
+                setTimeout(() => {
+                    statusDiv.innerHTML = '';
+                }, 3000);
+            } catch (error) {
+                statusDiv.innerHTML = '<div class="status error">エラー: ' + error.message + '</div>';
+            }
+        }
+
+        // Enter key support
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Initialize with some demo messages
+        function initDemoData() {
+            const existingMessages = getMessages();
+            if (existingMessages.length === 0) {
+                saveMessage('田中', 'こんにちは！初めてのメッセージです。');
+                saveMessage('佐藤', 'チャットアプリ作成お疲れ様です！');
+                saveMessage('山田', 'ReactとLaravelを使ったシンプルなチャットアプリですね。');
+            }
+        }
+
+        // Load messages on page load
+        window.onload = function() {
+            initDemoData();
+            displayMessages();
+        };
+    </script>
+</body>
+</html>
