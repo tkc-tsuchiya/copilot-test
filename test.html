@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>チャットアプリ - テスト</title>
+</head>
+<body>
+    <h1>チャットアプリ</h1>
+    
+    <h2>React Frontend</h2>
+    <p>フロントエンド: <a href="http://localhost:5173" target="_blank">http://localhost:5173</a></p>
+    
+    <h2>Laravel Backend API</h2>
+    <p>バックエンド API: <a href="http://localhost:8000/api/messages" target="_blank">http://localhost:8000/api/messages</a></p>
+    
+    <h2>テスト用リンク</h2>
+    <button onclick="testAPI()">API テスト</button>
+    <div id="result"></div>
+    
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                // Test GET
+                const response = await fetch('http://localhost:8000/api/messages');
+                const messages = await response.json();
+                
+                resultDiv.innerHTML = '<h3>現在のメッセージ:</h3><pre>' + JSON.stringify(messages, null, 2) + '</pre>';
+                
+                // Test POST
+                const postResponse = await fetch('http://localhost:8000/api/messages', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: 'テストユーザー',
+                        message: 'テストメッセージ: ' + new Date().toLocaleTimeString()
+                    })
+                });
+                
+                const newMessage = await postResponse.json();
+                resultDiv.innerHTML += '<h3>新しいメッセージ:</h3><pre>' + JSON.stringify(newMessage, null, 2) + '</pre>';
+                
+            } catch (error) {
+                resultDiv.innerHTML = '<p style="color: red;">エラー: ' + error.message + '</p>';
+            }
+        }
+    </script>
+</body>
+</html>
